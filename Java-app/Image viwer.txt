@@ -1,0 +1,56 @@
+package imageviewera;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import javax.imageio.*;
+import javax.swing.*;
+
+
+public class ImageViewera {
+public static void main(String[] args) {
+JFrame frame = new JFrame("Image Viewer");
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setSize(600, 600);
+frame.setLayout(new BorderLayout());
+JButton b = new JButton("Select Image");
+frame.add(b, BorderLayout.PAGE_END);
+
+final JLabel label = new JLabel();
+frame.add(label, BorderLayout.CENTER);
+
+b.addActionListener(new ActionListener() {
+
+
+public void actionPerformed(ActionEvent e) {
+JFileChooser fc = new JFileChooser();
+if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+try {
+Image i = ImageIO.read(fc.getSelectedFile());
+double scaling = 1.0 * label.getHeight()
+/ i.getHeight(null) < 1.0 * label.getWidth()
+/ i.getWidth(null) ? 1.0 * label.getHeight()
+/ i.getHeight(null) : 1.0 * label.getWidth()
+/ i.getWidth(null);
+
+if(scaling<1){
+i = i.getScaledInstance(
+(int) (i.getWidth(null) * scaling),
+(int) (i.getHeight(null) * scaling),
+Image.SCALE_FAST);
+}
+label.setIcon(new ImageIcon(i));
+System.out.println(scaling);
+} catch (IOException ee) {
+
+ee.printStackTrace();
+}
+
+}
+}
+});
+
+frame.setVisible(true);
+
+}
+}

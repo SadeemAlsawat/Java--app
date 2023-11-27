@@ -1,0 +1,41 @@
+//Sadeem Alsawat 
+
+package file;
+
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class Decryption {
+    public static void FileDecryption(String fileName, int[] numbers) throws IOException {
+        boolean endOfFile = false;
+        int index = 0;
+
+        // Create the binary file input objects.
+        FileInputStream fstream = new FileInputStream(fileName);
+        DataInputStream inputFile = new DataInputStream(fstream);
+        System.out.println("File Decryption.....");
+
+        while (!endOfFile) {
+
+            try {
+               int encryption = inputFile.readInt();
+                numbers[index]=encryption-10;
+                System.out.print(numbers[index] + " ");
+
+            } catch (EOFException e) {
+                endOfFile = true;
+            }
+            index++;
+
+        }
+        System.out.println("\nDone.");
+
+        // Close the file.
+        inputFile.close();
+    }
+
+    
+
+}

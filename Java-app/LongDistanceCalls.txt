@@ -1,0 +1,91 @@
+package longdistancecalls;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+/**
+ *
+ * @author Sadeem
+ */
+
+public class LongDistanceCalls extends JFrame implements ActionListener {
+
+    private JPanel panel;
+    private JTextField F1;
+    private JRadioButton R1;
+    private JRadioButton R2;
+    private JRadioButton R3;
+     
+    
+    public LongDistanceCalls (){
+        
+        setTitle("Long distance calls");
+        setSize (310,100);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        buildPanel();
+        add(panel);
+    
+    setVisible(true);
+        
+    }
+    
+    private void buildPanel(){
+        
+      JLabel L1 = new JLabel("Enter the number of minutes:");
+      F1 = new  JTextField (10) ;
+      
+        R1 = new JRadioButton ("Day time");
+        R2 = new JRadioButton ("Evening");
+        R3 = new JRadioButton ("Off-Peak");
+      
+      ButtonGroup BG = new ButtonGroup ();
+      BG.add(R1);
+      BG.add(R2);
+      BG.add(R3);
+      
+       R1.addActionListener(this);
+       R2.addActionListener(this);
+       R3.addActionListener(this);
+       
+       panel = new JPanel();
+       
+       panel.add(R1);
+       panel.add(R2);
+       panel.add(R3);
+       panel.add(L1);
+       panel.add(F1);
+      
+        
+    }
+    public static void main(String[] args) {
+       
+        LongDistanceCalls LD = new LongDistanceCalls();
+    }
+    
+    public void actionPerformed(ActionEvent e){
+        String input;
+        double result = 0.0;
+        
+        input = F1.getText();
+        
+        if (e.getSource() == R1){
+            result = Double.parseDouble(input)*0.07;
+        }
+        
+        else if (e.getSource() == R2){
+            result = Double.parseDouble(input)*0.12;
+        }
+        
+        else if (e.getSource()== R3){
+        result = Double.parseDouble(input)*0.12; 
+        }
+        
+        JOptionPane.showMessageDialog (null," Call charges is:  " + result );
+    }
+}

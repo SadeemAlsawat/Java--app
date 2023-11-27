@@ -1,0 +1,34 @@
+//TestScore modification for serialization
+//Sadeem Alsawat
+
+package serialization;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+public class DeserializeObjects {
+
+    final static int NUM_ITEMS = 5; 
+
+    public static void Deserialize() throws IOException, ClassNotFoundException, InvalidTestScore {
+
+        FileInputStream inStream = new FileInputStream("TestScores.dat");
+        ObjectInputStream objectInputFile = new ObjectInputStream(inStream);
+        TestScores[] Scores = new TestScores[NUM_ITEMS];
+
+       
+        for (int i = 0; i < Scores.length; i++) 
+            {
+                Scores[i]
+                        = (TestScores) objectInputFile.readObject();
+            }
+
+            objectInputFile.close();
+           
+            for (int i = 0; i < Scores.length; i++) {
+                System.out.println("Avg TestScores" + (i + 1)+"  " + Scores[i].Avg());
+            }
+        
+    }
+
+}

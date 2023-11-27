@@ -1,0 +1,249 @@
+ackage cellphonepackages;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.text.DecimalFormat;
+import javax.swing.*;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.*;
+
+
+
+@SuppressWarnings({ "unchecked", "rawtypes" })
+
+public class CellPhonePackages {
+
+public static class CellPhonePackage extends JFrame {
+
+
+private static final long serialVersionUID = 99999999144967L;
+
+private static final int WINDOW_WIDTH = 600;
+
+private static final int WINDOW_HEIGHT = 600;
+
+private static final double CELL_PHONE_TAX = 1.07;
+
+private static JPanel panel;
+
+private static JLabel LABPackages;
+
+private static JLabel LABPhones;
+
+private static JLabel LABOptions;
+
+private static JLabel LABTotalIs;
+
+private static JLabel LABOutputTotal;
+
+private static JComboBox cmbPackages;
+
+private static JComboBox cmbCellPhones;
+
+private static JList lstOptions;
+
+private static String[] strArrPackages = {
+
+"300 minutes per month: $45.00 per month","800 minutes per month: $65.00 per month",
+    "1500 minutes per month: $99.00 per month"
+};
+
+private static String[] strArrPhones = {
+"Model 100: $29.95",
+"Model 110: $49.95",
+"Model 200: $99.95"
+
+};
+
+private static String[] strArrOptions = {
+
+"Voice mail: $5.00 per month",
+"Text messaging: $10.00 per month"
+
+};
+
+private DecimalFormat form = new DecimalFormat("#0.00");
+
+private static double packageTotal;
+
+private static double phoneTotal;
+
+private static double optionTotal;
+
+
+
+public CellPhonePackage () {
+JFrame window = new JFrame();
+
+window.setTitle("Cell Phone Packages");
+
+window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+buildPanel();
+
+window.add(panel);
+
+window.setVisible(true);
+
+}
+
+private void buildPanel() {
+LABPackages = new JLabel("Choose your package:");
+
+LABPhones = new JLabel("Choose your cell phone:");
+
+LABOptions = new JLabel("Choose your options:");
+
+LABTotalIs = new JLabel("Your total is:");
+
+LABOutputTotal = new JLabel();
+
+cmbPackages = new JComboBox(strArrPackages);
+
+cmbCellPhones = new JComboBox(strArrPhones);
+
+lstOptions = new JList(strArrOptions);
+
+lstOptions.setSelectionMode(
+
+ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+cmbPackages.addActionListener(new packageListener());
+
+cmbCellPhones.addActionListener(new phoneListener());
+
+lstOptions.addListSelectionListener(new optionsListener());
+
+
+
+panel = new JPanel();
+
+panel.setLayout(new GridLayout(4, 2));
+
+panel.add(LABPackages);
+
+panel.add(cmbPackages);
+
+panel.add(LABPhones);
+
+panel.add(cmbCellPhones);
+
+panel.add(LABOptions);
+
+panel.add(lstOptions);
+
+panel.add(LABTotalIs);
+
+panel.add(LABOutputTotal);
+
+}
+
+public class packageListener implements ActionListener {
+
+public void actionPerformed(ActionEvent e) {
+
+int packageSelected =
+
+cmbPackages.getSelectedIndex();
+
+if (packageSelected == 0) {
+
+packageTotal = 45;
+
+} else if (packageSelected == 1) {
+
+packageTotal = 65;
+
+} else if (packageSelected == 2) {
+
+packageTotal = 99;
+
+}
+
+
+LABOutputTotal.setText("$" +
+
+form.format(optionTotal+packageTotal+phoneTotal));
+
+}
+
+}
+
+public class phoneListener implements ActionListener {
+
+public void actionPerformed(ActionEvent e) {
+
+int phoneSelected =cmbCellPhones.getSelectedIndex();
+
+
+if (phoneSelected == 0) {
+
+phoneTotal = 29.95;
+
+} else if (phoneSelected == 1) {
+
+phoneTotal = 49.95;
+
+} else if (phoneSelected == 2) {
+
+phoneTotal = 99.95;
+
+}
+
+phoneTotal *= CELL_PHONE_TAX;
+
+LABOutputTotal.setText("$" +
+
+form.format(optionTotal+packageTotal+phoneTotal));
+
+}
+
+}
+
+public class optionsListener implements ListSelectionListener {
+
+public void valueChanged(ListSelectionEvent e) {
+
+double temp = 0;
+
+int optionSelected[] =lstOptions.getSelectedIndices();
+
+for (int i = 0; i < optionSelected.length; i++) {
+
+if (optionSelected[i] == 0) {
+
+temp += 5;
+
+}
+
+if (optionSelected[i] == 1) {
+
+temp += 10;
+
+}
+
+}
+
+optionTotal = temp;
+
+LABOutputTotal.setText("$" +
+
+form.format(optionTotal+packageTotal+phoneTotal));
+
+}
+
+}
+
+}
+
+// Main method:
+
+public static void main(String[] args) {
+
+new CellPhonePackage();
+
+}
+
+}

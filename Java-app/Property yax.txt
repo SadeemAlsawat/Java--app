@@ -1,0 +1,73 @@
+package propertytax;
+
+import java.awt.*;
+import static java.awt.Event.F1;
+import javax.swing.*;
+import java.awt.event.*;
+
+/**
+ *
+ * @author Sadeem
+ */
+public class PropertyTax extends JFrame implements ActionListener{
+    
+    private JPanel panel;
+    private JTextField F1;
+    
+    public PropertyTax(){
+        
+    setTitle("Property Tax");
+    
+    setSize (300,300);
+        
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+        
+    buildPanel();
+    add(panel);
+    setVisible(true);
+        
+}
+    
+    private void buildPanel(){
+        JLabel L1 = new JLabel("Enter the actual value of a property");
+       F1 = new JTextField (10);
+        JButton B1 = new JButton("Calculate");
+        
+        B1.addActionListener(this);
+        
+        panel = new JPanel();
+        
+         panel.add(L1);
+        panel.add (F1);
+        panel.add(B1);
+           
+    }
+    
+
+    public static void main(String[] args) {
+        
+        PropertyTax p11 = new PropertyTax();
+        
+    }
+    
+    public void actionPerformed(ActionEvent e){
+        
+        final double assessment_value = 0.6;
+        final double property_tax = 0.64;
+        String input;
+        double actual_value;
+        double assessmentValue;
+	double propertyTax;
+        
+        input = F1.getText();
+        actual_value = Double.parseDouble (input);
+        
+        assessmentValue = actual_value * assessment_value;
+        propertyTax = assessmentValue * property_tax;
+        
+        JOptionPane.showMessageDialog(null, "Assessment value: $" + assessmentValue +
+					"\nProperty tax: $" + propertyTax);
+        
+    }
+}

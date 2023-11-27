@@ -1,0 +1,17 @@
+//Sadeem Alsawat
+
+package maintestscores;
+public class MainTestScores {
+    public static void main(String[] args) {
+        int[] scores = {90, 80, -1, 100, 100};
+
+        TestScores test = new TestScores(scores);
+        try {
+            System.out.println(test.Avg());
+
+        } catch (InvalidTestScore e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+}

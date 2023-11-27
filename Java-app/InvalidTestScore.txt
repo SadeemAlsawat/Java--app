@@ -1,0 +1,11 @@
+//Sadeem Alsawat
+
+package socsecprocessor;
+
+public class InvalidTestScore extends Exception{
+
+    public InvalidTestScore(int testScoreValue) {
+        super("Error: invalid Scores: " + testScoreValue);
+        
+    }  
+}

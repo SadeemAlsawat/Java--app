@@ -1,0 +1,17 @@
+//Sadeem Alsawat
+
+package mainfilearray;
+import java.io.IOException;
+public class MainFileArray {
+ public static void main(String[] args) throws IOException {
+        int[]arrayData={ 10, 9, 3, 8, 26, 120, 140 };
+        int[]readData=new int[7];
+        //write data to file
+        FileArray.writeArray("Numbers.dat", arrayData);
+        
+        //read data from file
+        FileArray.readArray("Numbers.dat", readData);
+
+    }
+    
+}

@@ -1,0 +1,26 @@
+//throws InvalidTestScore
+//Sadeem Alsawat
+
+package maintestscores;
+    
+    public class TestScores {
+    private int[] testScores;
+
+    public TestScores(int[] testScores) {
+        this.testScores = testScores;
+    }
+
+    public double Avg() throws InvalidTestScore {
+        int sum = 0;
+        for (int i = 0; i < testScores.length; i++) {
+            if (testScores[i] > 100 || testScores[i] < 0) {
+                throw new InvalidTestScore(testScores[i]);
+            } else {
+                sum += testScores[i];
+
+            }
+        }
+        return sum / testScores.length;
+    }
+
+}

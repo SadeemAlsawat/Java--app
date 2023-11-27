@@ -1,0 +1,135 @@
+package theaterrevenue;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+/**
+ *
+ * @author Sadeem
+ */
+public class TheaterRevenue extends JFrame implements ActionListener {
+    
+    private JPanel panel;
+    private JTextField F1;
+    private JTextField F2;
+    private JTextField F3;
+    private JTextField F4;
+    private JLabel L1;
+    private JLabel L2;
+    private JLabel L3;
+    private JLabel L4;
+    
+    public TheaterRevenue(){
+        
+        setTitle("Theater Revenue");
+        setSize (310,100);
+        
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+        
+   buildPanel();
+    add(panel);
+    setVisible(true);
+    
+    }
+    
+    private void buildPanel(){
+        
+        
+        
+         L1 = new JLabel("Price per adult ticket:");
+         F1 = new  JTextField (10) ;
+         
+         L2 = new JLabel("Number of adult tickets sold:");
+         F2 = new  JTextField (10) ;
+         
+         L3 = new JLabel("Price per child ticket:");
+         F3 = new  JTextField (10);
+         
+         L4 = new JLabel("Number of child tickets sold:");
+         F4 = new  JTextField (10);
+        
+        JButton B1 = new JButton("Calculate fees");
+        B1.addActionListener(this);
+        
+        panel = new JPanel();
+        
+        panel.add(L1);
+        panel.add(F1);
+        panel.add(L2);
+        panel.add(F2);
+        panel.add(L3);
+        panel.add(F3);
+        panel.add(L4);
+        panel.add(F4);
+        panel.add(B1);
+        
+    }
+    
+    public static void main(String[] args) {
+       new TheaterRevenue();
+    }
+    
+     public void actionPerformed(ActionEvent e){
+         
+         String input;
+         double adult_ticket;
+         int adult_tickets_sold;
+         double child_ticket;
+         int child_tickets_sold;
+         
+         double grossRevenueAdultTicket;
+         double netRevenueAdultTicket;
+         double grossRevenueChildTicket;
+         double netRevenueChildeTicket;
+         double totalGrossRevenue;
+         double totalNetRevenue;
+         double con = 0.20;
+        
+         
+                 
+        input = F1.getText();
+        adult_ticket = Double.parseDouble (input);
+         
+        input = F2.getText();
+        adult_tickets_sold = Integer.parseInt (input);
+        
+        
+        input = F3.getText();
+        child_ticket = Double.parseDouble (input);
+        
+        input = F4.getText();
+        child_tickets_sold = Integer.parseInt (input);
+        
+         grossRevenueAdultTicket = adult_ticket * adult_tickets_sold;
+         netRevenueAdultTicket = grossRevenueAdultTicket * con;
+         
+         grossRevenueChildTicket = child_ticket * child_tickets_sold;
+         netRevenueChildeTicket = grossRevenueChildTicket *con;
+         
+         totalGrossRevenue = grossRevenueAdultTicket + grossRevenueChildTicket;
+         totalNetRevenue = netRevenueAdultTicket + netRevenueChildeTicket;
+         
+         
+         
+         
+        
+       JOptionPane.showMessageDialog(null,
+               String.format("The total gross for adult ticket sales is: $%,.2f%n"
+                       + "The total net for adult ticket sales is: $%,.2f%n"
+                       + "The total gross for child ticket sales is: $%,.2f%n"
+                       + "The total net for child ticket sales is: $%,.2f%n"
+                       + "The total gross revenue for all ticket sales is: $%,.2f%n"
+                       + "The total net revenue for all ticket sales is: $%,.2f%n",
+                       grossRevenueAdultTicket, netRevenueAdultTicket,
+                       grossRevenueChildTicket, netRevenueChildeTicket,
+                       totalGrossRevenue, totalNetRevenue),
+                       "Ticket Sales", JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        
+         
+     }
+    
+}

@@ -1,0 +1,46 @@
+//TestScore modification for serialization
+//Sadeem Alsawat
+
+package serialization;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class Serialization {
+public static void main(String[] args) throws IOException, ClassNotFoundException, InvalidTestScore {
+       
+        
+        final int NUM_ITEMS = 5;
+        TestScores[] Scores = new TestScores[NUM_ITEMS];
+        int[] scores = {90, 80, 100, 100, 100};
+        int[] scores2 = {70, 90, 100, 99, 98};
+        int[] scores3 = {99, 95, 100, 99, 90};
+        int[] scores4 = {100, 93, 100, 97, 90};
+        int[] scores5 = {80, 92, 100, 97, 98};
+        
+         Scores[0] = new TestScores(scores);
+         Scores[1] = new TestScores(scores2);
+         Scores[2] = new TestScores(scores3);
+         Scores[3] = new TestScores(scores4);
+         Scores[4] = new TestScores(scores5);
+        // Create the stream objects.
+        FileOutputStream outStream = new FileOutputStream("TestScores.dat");
+        ObjectOutputStream objectOutputFile = new ObjectOutputStream(outStream);
+
+        // Write the serialized objects to the file.
+        for (int i = 0; i < Scores.length; i++) {
+            objectOutputFile.writeObject(Scores[i]);
+        }
+        // Close the file.
+        objectOutputFile.close();
+        System.out.println("The serialized objects " + "were written to the TestScores.dat file.");
+        
+        System.out.println("The Deserialize objects " + "Read data from TestScores.dat file.");
+        DeserializeObjects.Deserialize();
+        
+        
+    }
+
+}
+
+    

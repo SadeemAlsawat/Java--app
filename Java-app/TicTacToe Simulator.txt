@@ -1,0 +1,213 @@
+package tictactoesimulator;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Random;
+import javax.swing.*;
+import javax.swing.JOptionPane;
+
+
+public class TicTacToeSimulator extends JFrame {
+JLabel labels[] = new JLabel[9];
+
+char board[] = new char[9];
+
+public TicTacToeSimulator () {
+
+this.setLayout(new GridLayout(4,3));
+
+for (int i = 0; i < 9; i++) {
+
+labels[i] = new JLabel(" ");
+
+labels[i].setFont(labels[i].getFont().deriveFont(120.0f).deriveFont(4));
+
+add(labels[i]);
+
+}
+
+for(int i=0;i<9;i++){
+
+board[i]='-';
+
+}
+
+JButton newGame = new JButton("New Game");
+
+JButton exit = new JButton("Exit");
+
+add(newGame);
+
+add(new JLabel(" "));
+
+add(exit);
+
+newGame.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+
+generateBoard();
+
+if(gameOverWinner(board,'X')){
+
+JOptionPane.showMessageDialog(null, "Player X Wins");
+
+}else if(gameOverWinner(board,'O')){
+
+JOptionPane.showMessageDialog(null, "Player O Wins");
+
+}else{
+
+JOptionPane.showMessageDialog(null, "Match Draw");
+
+}
+
+}
+
+});
+
+exit.addActionListener(new ActionListener() {
+
+@Override
+
+public void actionPerformed(ActionEvent e) {
+
+System.exit(0);
+
+}
+
+});
+
+}
+
+void generateBoard(){
+
+Random rand = new Random();
+
+char player1,player2;
+
+int m = rand.nextInt(2);
+
+if(m==0){
+
+player1='O';
+
+player2='X';
+
+}else{
+
+player2='O';
+
+player1='X';
+
+}
+
+for(int i=0;i<9;i++){
+
+board[i]='-';
+
+}
+
+char ch;
+
+
+for (int i = 0; i < 9; i++) {
+
+
+
+if(i%2==0){
+
+ch = player1;
+
+}else{
+
+ch = player2;
+
+}
+
+int number = rand.nextInt(9);
+
+while(board[number]!='-'){
+
+number = rand.nextInt(9);
+
+}
+
+board[number] = ch;
+
+}
+
+for (int i = 0; i < 9; i++) {
+
+String text= board[i]+"";
+
+labels[i].setText(text);
+
+}
+
+repaint();
+
+revalidate();
+
+}
+
+public static boolean threeInRow(char a, char b, char c) {
+
+if(a==b && b==c){
+
+return true;
+
+}
+
+return false;
+
+}
+
+public static boolean gameOverWinner(char board[],char player) {
+
+if(threeInRow(board[0],board[1],board[2]) && board[2] ==player ||
+
+threeInRow(board[4],board[5],board[3]) && board[5] ==player ||
+
+threeInRow(board[6],board[7],board[8]) && board[8] ==player
+
+){
+
+return true;
+
+}
+
+if(threeInRow(board[0],board[3],board[6]) && board[6] ==player ||
+
+threeInRow(board[1],board[4],board[7]) && board[7] ==player ||
+
+threeInRow(board[8],board[5],board[2]) && board[8] ==player
+
+){
+
+return true;
+
+}
+
+if(threeInRow(board[8],board[4],board[0]) && board[8] ==player ||
+
+threeInRow(board[7],board[4],board[2]) && board[7] ==player
+
+){
+
+return true;
+
+}
+
+return false; 
+}
+
+public static void main(String[] args) {
+
+TicTacToeSimulator main = new TicTacToeSimulator ();
+
+main.setSize(new Dimension(600, 600));
+
+main.setVisible(true);
+
+}
+
+}
